@@ -1,0 +1,251 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #3a6ea5, #c1d5e0);
+    margin: 0;
+    overflow: hidden; /* Prevent scrollbars if content slightly overflows */
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 1000px;
+    height: 90vh;
+    max-height: 700px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    box-sizing: border-box;
+    color: #fff;
+    position: relative; /* For absolute positioning of some elements if needed */
+}
+
+/* Player Info Areas */
+.player-info {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Space out elements */
+}
+
+.opponent-info {
+    order: 1; /* Place at top */
+}
+
+.self-info {
+    order: 3; /* Place at bottom */
+    flex-direction: column; /* Stack elements vertically */
+    align-items: stretch; /* Stretch items like hand area */
+}
+
+.player-info h2 {
+    margin: 0 15px 0 0; /* Margin right */
+    font-size: 1.5em;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    min-width: 150px; /* Ensure space for name */
+    text-align: center;
+}
+
+.opponent-info h2 {
+    order: 1; /* Name first */
+}
+.opponent-info .hp-bar-container {
+    order: 2;
+}
+.opponent-info .played-card-display {
+    order: 3;
+}
+.opponent-info .hand-info {
+     order: 4;
+     font-size: 0.9em;
+     color: #ddd;
+}
+
+.self-info h2 {
+     text-align: center;
+     margin: 10px 0; /* Space above/below name */
+}
+
+
+/* HP Bar Styling */
+.hp-bar-container {
+    flex-grow: 1; /* Allow HP bar to take available space */
+    height: 25px;
+    background-color: #555;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.4);
+    margin: 0 15px; /* Spacing around HP bar */
+}
+
+.hp-bar {
+    height: 100%;
+    width: 100%; /* Start full */
+    background: linear-gradient(to right, #4caf50, #8bc34a); /* Green gradient */
+    border-radius: 15px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: width 0.5s ease-in-out, background 0.5s ease-in-out;
+}
+
+.hp-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    line-height: 25px; /* Vertically center text */
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+/* Played Card Display */
+.played-card-display {
+    width: 90px; /* Slightly larger than card */
+    height: 125px;
+    border: 2px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 0 10px; /* Spacing */
+}
+.played-card-display img {
+    max-width: 80px;
+    max-height: 110px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.played-card-display .placeholder {
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    padding: 5px;
+}
+
+
+/* Game Board (Center Area) */
+#game-board {
+    order: 2; /* Place in the middle */
+    flex-grow: 1; /* Take remaining vertical space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+#status-message, #waiting-message {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 15px;
+    min-height: 1.5em; /* Prevent layout shifts */
+    color: #fff;
+     text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+#action-buttons button {
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 25px; /* Rounded buttons */
+    background: linear-gradient(to bottom, #fbc531, #f39c12); /* Yellow/Orange */
+    color: #333;
+    margin: 5px 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#action-buttons button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    filter: brightness(1.1);
+}
+
+#action-buttons button:disabled {
+    background: #aaa;
+    color: #666;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.round-result-display {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    font-size: 1.1em;
+    min-height: 50px; /* Ensure space */
+    line-height: 1.4;
+    opacity: 0; /* Hidden initially */
+    transition: opacity 0.5s ease-in-out;
+    max-width: 80%;
+}
+
+.round-result-display.visible {
+    opacity: 1;
+}
+
+
+/* Player Hand Area */
+#player-hand-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Allow cards to wrap if too many */
+    padding: 10px 0;
+    min-height: 120px; /* Ensure space for cards */
+}
+
+.card {
+    width: 80px;
+    height: 110px;
+    margin: 0 5px; /* Space between cards */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative; /* For potential overlays or effects */
+    background-color: #fff; /* Fallback background */
+    background-size: cover; /* Make image cover the div */
+    background-position: center;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.05);
+    z-index: 10; /* Bring hovered card to front */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.card.selected {
+    transform: translateY(-15px) scale(1.08);
+    box-shadow: 0 0 15px 3px #4a90e2; /* Blue glow */
+    border: 2px solid #4a90e2;
+}
+
+.card.disabled {
+    cursor: not-allowed;
+    filter: grayscale(80%);
+    opacity: 0.7;
+}
+.card.disabled:hover {
+     transform: none; /* Disable hover effect */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}

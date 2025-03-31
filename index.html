@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網路撲克牌對戰</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Opponent Area (Player 2 - Top) -->
+        <div class="player-info opponent-info">
+            <h2 id="player-2-name">等待對手...</h2>
+            <div class="hp-bar-container">
+                <div class="hp-bar" id="hp-bar-2"></div>
+                <span class="hp-text" id="hp-text-2">?/? HP</span>
+            </div>
+            <div class="played-card-display" id="played-card-area-2">
+                <!-- Played card image will appear here -->
+                <span class="placeholder">對手出牌區</span>
+            </div>
+            <div class="hand-info" id="opponent-hand-info">對手手牌: ?</div>
+        </div>
+
+        <!-- Game Board Area (Center) -->
+        <div id="game-board">
+            <div id="status-message">正在連接伺服器...</div>
+            <div id="waiting-message" style="display: none;">正在尋找對手...</div>
+            <div id="action-buttons">
+                <button id="find-game-button">尋找遊戲</button>
+                <button id="play-card-button" style="display: none;" disabled>出牌</button>
+                <button id="next-round-button" style="display: none;">下一回合</button>
+            </div>
+             <div id="round-result" class="round-result-display"></div>
+        </div>
+
+         <!-- Player Area (Player 1 - Bottom) -->
+        <div class="player-info self-info">
+             <div class="played-card-display" id="played-card-area-1">
+                 <span class="placeholder">你的出牌區</span>
+            </div>
+            <h2 id="player-1-name">你</h2>
+            <div class="hp-bar-container">
+                <div class="hp-bar" id="hp-bar-1"></div>
+                <span class="hp-text" id="hp-text-1">?/? HP</span>
+            </div>
+            <div id="player-hand-area">
+                <!-- Card images will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Socket.IO Client Library (must be included before your script.js) -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Your Client Game Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
